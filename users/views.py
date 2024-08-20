@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+# create a view to return just httpresponse message not from template
+def welcome(request):
+    return HttpResponse("Welcome to the users app!")
+
+
+
+
