@@ -11,9 +11,9 @@ class CustomUserAdmin(UserAdmin):
 
 class EventAdmin(admin.ModelAdmin):
     model = Event
-    list_display = ('name', 'date', 'venue', 'capacity')  # Customize the list display
-    search_fields = ('name', 'date')  # Customize the search fields
-    ordering = ('date',)
+    list_display = ('name', 'start_date', 'end_date', 'venue', 'capacity')  # Customize the list display
+    search_fields = ('name', 'start_date')  # Customize the search fields
+    ordering = ('-start_date',)
 
 class RegistrationAdmin(admin.ModelAdmin):
     model = Registration

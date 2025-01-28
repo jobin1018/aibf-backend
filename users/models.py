@@ -45,25 +45,30 @@ class User(AbstractUser):
 class Event(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(max_length=200, blank=True, null=True)
-    date = models.DateTimeField(blank=True, null=True)
+    start_date = models.DateField(default='2025-04-24')
+    start_time = models.TimeField(default='09:00:00')
+    end_date = models.DateField(default='2025-04-27')
+    end_time = models.TimeField(default='17:00:00')
     venue = models.CharField(max_length=100, blank=True, null=True)
     capacity = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.name} - {self.date}'
+        return self.name or ''
 
 class Registration(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     no_of_adults = models.IntegerField(blank=True, null=True)
     no_of_children = models.IntegerField(blank=True, null=True)
-    emails_of_additional_attendees = models.TextField(max_length=100, blank=True, null=True)
+    additional_adults = models.TextField(max_length=500, blank=True, null=True)
+    additional_kids = models.TextField(max_length=500, blank=True, null=True)
     registration_date = models.DateTimeField(auto_now_add=True)
+    payment_status = models.BooleanField(default=False)
 
-    unique_together = ('event', 'user')
-
+    class Meta:
+        unique_together = ('event', 'user')
 
     def __str__(self):
-        return f'{self.event.name} - {self.user.email}'
+        return f"{self.user.name} - {self.event.name}"

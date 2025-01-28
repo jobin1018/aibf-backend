@@ -31,11 +31,13 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
     ".railway.app",
-    "0.0.0.0"
+    "0.0.0.0",
+    ".aibf.org.au"
 ]
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React development server
-    "http://localhost:5173",  # React development server
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "https://www.aibf.org.au" 
 ]
 
 from datetime import timedelta
