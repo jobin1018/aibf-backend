@@ -34,7 +34,8 @@ ALLOWED_HOSTS = [
     ".railway.app",
     "0.0.0.0",
     ".aibf.org.au",
-    "aibf-backend-production.up.railway.app"
+    "aibf-backend-production.up.railway.app",
+    "*"  # Be cautious with this in production
 ]
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

@@ -1,0 +1,1 @@
+web: ./paracord_runner.sh
