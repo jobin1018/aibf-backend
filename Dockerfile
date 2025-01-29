@@ -30,4 +30,4 @@ RUN python manage.py migrate
 EXPOSE 8000
 
 # Run gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:$PORT", "aibf_backend.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "aibf_backend.wsgi:application"]
