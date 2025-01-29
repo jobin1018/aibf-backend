@@ -19,6 +19,7 @@ COPY . /app
 # Install Python dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install psycopg2-binary
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
