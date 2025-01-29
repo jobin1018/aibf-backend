@@ -55,9 +55,14 @@ ARG PROJ_NAME="aibf_backend"
 # this script will execute at runtime when
 # the container starts and the database is available
 RUN printf "#!/bin/bash\n" > ./paracord_runner.sh && \
+    printf "set -x\n" >> ./paracord_runner.sh && \
+    printf "echo \"Starting application...\"\n" >> ./paracord_runner.sh && \
+    printf "echo \"Current environment:\"\n" >> ./paracord_runner.sh && \
+    printf "env\n" >> ./paracord_runner.sh && \
     printf "RUN_PORT=\"\${PORT:-8000}\"\n\n" >> ./paracord_runner.sh && \
+    printf "echo \"Using port: \$RUN_PORT\"\n" >> ./paracord_runner.sh && \
     printf "python manage.py migrate --no-input\n" >> ./paracord_runner.sh && \
-    printf "gunicorn ${PROJ_NAME}.wsgi:application --bind \"0.0.0.0:\$RUN_PORT\"\n" >> ./paracord_runner.sh
+    printf "gunicorn ${PROJ_NAME}.wsgi:application --bind \"0.0.0.0:\$RUN_PORT\" --log-level debug\n" >> ./paracord_runner.sh
 
 # make the bash script executable
 RUN chmod +x paracord_runner.sh
