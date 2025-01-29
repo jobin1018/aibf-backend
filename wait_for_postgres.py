@@ -31,7 +31,7 @@ def test_postgres_connection():
             'dbname': os.environ.get('PGDATABASE', 'aibf_db'),
             'user': os.environ.get('PGUSER', 'root'),
             'password': os.environ.get('PGPASSWORD', 'pass'),
-            'host': os.environ.get('PGHOST', 'db'),
+            'host': os.environ.get('PGHOST', 'localhost'),
             'port': os.environ.get('PGPORT', '5434')
         }
         
@@ -48,7 +48,7 @@ def test_postgres_connection():
 
 def wait_for_postgres(max_attempts=30, delay=2):
     """Wait for PostgreSQL to be ready."""
-    host = os.environ.get('PGHOST', 'db')
+    host = os.environ.get('PGHOST', 'localhost')
     port = os.environ.get('PGPORT', '5434')
     
     print(f"Attempting to connect to PostgreSQL at {host}:{port}")

@@ -27,9 +27,9 @@ RUN pip install psycopg2-binary
 RUN python manage.py collectstatic --noinput
 
 # Run migrations
-RUN python manage.py migrate
+# RUN python manage.py migrate
 
-# Make port 8000 available to the world outside this container
+# Expose the port the app runs on
 EXPOSE 8000
 
 # Run the application

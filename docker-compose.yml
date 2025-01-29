@@ -19,11 +19,7 @@ services:
 
   web:
     build: .
-    command: >
-      sh -c "
-      python wait_for_postgres.py &&
-      python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000"
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
