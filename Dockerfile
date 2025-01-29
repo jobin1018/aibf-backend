@@ -43,6 +43,9 @@ COPY . /code
 # Install the Python project requirements
 RUN pip install -r /tmp/requirements.txt
 
+# Create static directory
+RUN mkdir -p /code/static
+
 # database isn't available during build
 # run any other commands that do not need the database
 # such as:
@@ -74,4 +77,4 @@ RUN apt-get remove --purge -y \
 
 # Run the Django project via the runtime script
 # when the container starts
-CMD ./paracord_runner.sh
+CMD ./paracord_runner.sh    
