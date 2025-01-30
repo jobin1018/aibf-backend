@@ -40,10 +40,12 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:5173",
+    "http://localhost:5174",
     "https://www.aibf.org.au",
-    "https://aibf-backend-production.up.railway.app"
+    "https://aibf-backend-production.up.railway.app",
+    "*"
 ]
-CSRF_TRUSTED_ORIGINS = ['https://aibf-backend-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://aibf-backend.up.railway.app', '*']
 
 from datetime import timedelta
 

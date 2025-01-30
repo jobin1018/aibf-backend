@@ -26,7 +26,17 @@ class GoogleSignInView(APIView):
             print("idnfo>>>", idinfo)
 
             # Find or create the user
-            user, created = User.objects.get_or_create(email=email, defaults={"name": name})
+            try:
+                user = User.objects.get(email=email)
+                created = False
+            except User.DoesNotExist:
+                # Create user with email as username
+                user = User.objects.create_user(
+                    email=email, 
+                    username=email,  # Use email as username
+                    name=name
+                )
+                created = True
             
             # Generate JWT token
             refresh = RefreshToken.for_user(user)
