@@ -28,20 +28,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Registration
-        fields = [
-            'user_name', 
-            'email', 
-            'city', 
-            'state', 
-            'phone', 
-            'no_of_adults', 
-            'no_of_children', 
-            'additional_adults', 
-            'additional_kids', 
-            'registration_date',
-            'payment_status'
-        ]
-
+        fields = '__all__'
+        
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

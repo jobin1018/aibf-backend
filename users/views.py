@@ -143,9 +143,12 @@ class RegistrationViewSet(viewsets.ModelViewSet):
         email = request.data.get('email')
         event_id = request.data.get('event_id')
         no_of_adults = request.data.get('no_of_adults', 0)
-        no_of_children = request.data.get('no_of_children', 0)
+        no_of_children_9_13 = request.data.get('no_of_children_9_13', 0)
+        no_of_children_3_8 = request.data.get('no_of_children_3_8', 0)
         additional_adults = request.data.get('additional_adults', '')
-        additional_kids = request.data.get('additional_kids', '')
+        additional_kids_9_13 = request.data.get('additional_kids_9_13', '')
+        additional_kids_3_8 = request.data.get('additional_kids_3_8', '')
+        selected_package = request.data.get('selected_package', '')
         payment_status = request.data.get('payment_status', False)
 
         # Validate required fields
@@ -182,9 +185,12 @@ class RegistrationViewSet(viewsets.ModelViewSet):
             user=user,
             event=event,
             no_of_adults=no_of_adults,
-            no_of_children=no_of_children,
+            no_of_children_9_13=no_of_children_9_13,
+            no_of_children_3_8=no_of_children_3_8,
             additional_adults=additional_adults,
-            additional_kids=additional_kids,
+            additional_kids_9_13=additional_kids_9_13,
+            additional_kids_3_8=additional_kids_3_8,
+            selected_package=selected_package,
             payment_status=payment_status
         )
 

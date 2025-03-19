@@ -17,7 +17,7 @@ class EventAdmin(admin.ModelAdmin):
 
 class RegistrationAdmin(admin.ModelAdmin):
     model = Registration
-    list_display = ('event', 'user', 'no_of_adults')  # Customize the list display
+    list_display = ('event', 'user', 'selected_package')  # Customize the list display
     search_fields = ('event', 'user')  # Customize the search fields
     ordering = ('registration_date',)
 

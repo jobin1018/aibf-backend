@@ -61,11 +61,14 @@ class Registration(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     no_of_adults = models.IntegerField(blank=True, null=True)
-    no_of_children = models.IntegerField(blank=True, null=True)
+    no_of_children_9_13 = models.IntegerField(blank=True, null=True)
+    no_of_children_3_8 = models.IntegerField(blank=True, null=True)
     additional_adults = models.TextField(max_length=500, blank=True, null=True)
-    additional_kids = models.TextField(max_length=500, blank=True, null=True)
+    additional_kids_9_13 = models.TextField(max_length=500, blank=True, null=True)
+    additional_kids_3_8 = models.TextField(max_length=500, blank=True, null=True)
     registration_date = models.DateTimeField(auto_now_add=True)
     payment_status = models.BooleanField(default=False)
+    selected_package = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         unique_together = ('event', 'user')
