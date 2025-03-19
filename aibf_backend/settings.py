@@ -26,10 +26,11 @@ SECRET_KEY = "django-insecure-^c85%r4$o5k$(os)u_#$+mvd00w#kecwzk_hu)qd9yt@#b^!v_
 # SECURITY WARNING: don't run with debug turned on in production!
 # Set DEBUG before using it
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-SECRET_KEY = os.environ.get('SECRET_KEY', 'your-default-secret-key')
+SECRET_KEY = os.environ.get('SECRET_KEY')
+print("debugging ......>", DEBUG, SECRET_KEY)
 
 # Now it's safe to check DEBUG
-if 'SECRET_KEY' not in os.environ and not DEBUG:
+if not SECRET_KEY:
     raise ValueError("SECRET_KEY environment variable is missing.")
 
 AUTH_USER_MODEL = 'users.User'
