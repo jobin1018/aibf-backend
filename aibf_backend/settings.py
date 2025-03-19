@@ -24,7 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-^c85%r4$o5k$(os)u_#$+mvd00w#kecwzk_hu)qd9yt@#b^!v_"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Set DEBUG before using it
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-default-secret-key')
+
+# Now it's safe to check DEBUG
+if 'DJANGO_SECRET_KEY' not in os.environ and not DEBUG:
+    raise ValueError("DJANGO_SECRET_KEY environment variable is missing.")
 
 AUTH_USER_MODEL = 'users.User'
 
