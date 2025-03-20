@@ -24,6 +24,8 @@ RUN apt-get update && apt-get install -y \
     libjpeg-dev \
     # for CairoSVG
     libcairo2 \
+    # for database check
+    netcat-traditional \
     # other
     gcc \
     && rm -rf /var/lib/apt/lists/*
@@ -60,12 +62,18 @@ ARG PROJ_NAME="aibf_backend"
 RUN printf "#!/bin/bash\n" > ./paracord_runner.sh && \
     printf "set -e\n" >> ./paracord_runner.sh && \
     printf "echo \"Starting application...\"\n" >> ./paracord_runner.sh && \
+    printf "echo \"Environment variables:\"\n" >> ./paracord_runner.sh && \
+    printf "echo \"PGDATABASE: \$PGDATABASE\"\n" >> ./paracord_runner.sh && \
+    printf "echo \"PGUSER: \$PGUSER\"\n" >> ./paracord_runner.sh && \
+    printf "echo \"PGHOST: \$PGHOST\"\n" >> ./paracord_runner.sh && \
+    printf "echo \"PGPORT: \$PGPORT\"\n" >> ./paracord_runner.sh && \
     printf "echo \"PORT environment variable: \$PORT\"\n" >> ./paracord_runner.sh && \
     printf "RUN_PORT=\"\${PORT:-8000}\"\n\n" >> ./paracord_runner.sh && \
     printf "echo \"Resolved port: \$RUN_PORT\"\n" >> ./paracord_runner.sh && \
     printf "echo \"Waiting for database to be ready...\"\n" >> ./paracord_runner.sh && \
     printf "while ! nc -z \$PGHOST \$PGPORT; do\n" >> ./paracord_runner.sh && \
-    printf "  sleep 0.1\n" >> ./paracord_runner.sh && \
+    printf "  echo \"Waiting for database at \$PGHOST:\$PGPORT...\"\n" >> ./paracord_runner.sh && \
+    printf "  sleep 1\n" >> ./paracord_runner.sh && \
     printf "done\n" >> ./paracord_runner.sh && \
     printf "echo \"Database is ready!\"\n" >> ./paracord_runner.sh && \
     printf "echo \"Running migrations...\"\n" >> ./paracord_runner.sh && \
