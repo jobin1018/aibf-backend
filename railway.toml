@@ -7,3 +7,7 @@ watchPatterns = [
     "railway.toml",
     "Dockerfile",
 ]
+
+[deploy]
+# Run database migrations after the build and before starting the app
+postDeployCommand = "python manage.py migrate --no-input"
