@@ -58,12 +58,19 @@ ARG PROJ_NAME="aibf_backend"
 # this script will execute at runtime when
 # the container starts and the database is available
 RUN printf "#!/bin/bash\n" > ./paracord_runner.sh && \
-    printf "set -x\n" >> ./paracord_runner.sh && \
+    printf "set -e\n" >> ./paracord_runner.sh && \
     printf "echo \"Starting application...\"\n" >> ./paracord_runner.sh && \
     printf "echo \"PORT environment variable: \$PORT\"\n" >> ./paracord_runner.sh && \
     printf "RUN_PORT=\"\${PORT:-8000}\"\n\n" >> ./paracord_runner.sh && \
     printf "echo \"Resolved port: \$RUN_PORT\"\n" >> ./paracord_runner.sh && \
+    printf "echo \"Waiting for database to be ready...\"\n" >> ./paracord_runner.sh && \
+    printf "while ! nc -z \$PGHOST \$PGPORT; do\n" >> ./paracord_runner.sh && \
+    printf "  sleep 0.1\n" >> ./paracord_runner.sh && \
+    printf "done\n" >> ./paracord_runner.sh && \
+    printf "echo \"Database is ready!\"\n" >> ./paracord_runner.sh && \
+    printf "echo \"Running migrations...\"\n" >> ./paracord_runner.sh && \
     printf "python manage.py migrate --no-input\n" >> ./paracord_runner.sh && \
+    printf "echo \"Migrations completed!\"\n" >> ./paracord_runner.sh && \
     printf "gunicorn ${PROJ_NAME}.wsgi:application --bind \"0.0.0.0:\$RUN_PORT\" --log-level debug\n" >> ./paracord_runner.sh
 
 # make the bash script executable
