@@ -23,6 +23,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     user_name = serializers.CharField(source='user.name', read_only=True)
     email = serializers.EmailField(source='user.email', read_only=True)
     city = serializers.CharField(source='user.city', read_only=True)
+    address = serializers.CharField(source='user.address', read_only=True)
     state = serializers.CharField(source='user.state', read_only=True)
     phone = serializers.CharField(source='user.phone', read_only=True)
 
