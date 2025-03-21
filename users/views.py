@@ -8,6 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework import viewsets
 from .models import User, Event, Registration
 from .serializers import EventSerializer, RegistrationSerializer, UserSerializer
+from .utils import send_welcome_email
 
 
 class GoogleSignInView(APIView):
@@ -96,10 +97,12 @@ class CompleteProfileView(APIView):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
 
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
 
     def get_queryset(self):
         return Event.objects.all().order_by('-start_date', '-start_time')
@@ -137,6 +140,7 @@ class EventViewSet(viewsets.ModelViewSet):
 class RegistrationViewSet(viewsets.ModelViewSet):
     queryset = Registration.objects.all()
     serializer_class = RegistrationSerializer
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
 
     def create(self, request, *args, **kwargs):
         # Extract email and other registration details from request
@@ -193,6 +197,13 @@ class RegistrationViewSet(viewsets.ModelViewSet):
             selected_package=selected_package,
             payment_status=payment_status
         )
+
+        # Send welcome email
+        try:
+            send_welcome_email(user.email, user.name, event.name)
+        except Exception as e:
+            # Log the error but don't prevent registration from completing
+            print(f"Error sending welcome email: {str(e)}")
 
         # Serialize and return the registration
         serializer = self.get_serializer(registration)
