@@ -45,6 +45,7 @@ class GoogleSignInView(APIView):
                 "refresh": str(refresh),
                 "access": str(refresh.access_token),
                 "user": {
+                    "id": user.id,
                     "email": user.email,
                     "name": user.name,
                     "new_user": created
