@@ -69,6 +69,7 @@ class Registration(models.Model):
     registration_date = models.DateTimeField(auto_now_add=True)
     payment_status = models.BooleanField(default=False)
     selected_package = models.CharField(max_length=100, blank=True, null=True)
+    selected_meals = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         unique_together = ('event', 'user')

@@ -145,6 +145,7 @@ class RegistrationViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         # Extract email and other registration details from request
+        print("request.data", request.data)
         email = request.data.get('email')
         event_id = request.data.get('event_id')
         no_of_adults = request.data.get('no_of_adults', 0)
@@ -154,6 +155,7 @@ class RegistrationViewSet(viewsets.ModelViewSet):
         additional_kids_9_13 = request.data.get('additional_kids_9_13', '')
         additional_kids_3_8 = request.data.get('additional_kids_3_8', '')
         selected_package = request.data.get('selected_package', '')
+        selected_meals = request.data.get('selected_meals', '')
         payment_status = request.data.get('payment_status', False)
 
         # Validate required fields
@@ -196,6 +198,7 @@ class RegistrationViewSet(viewsets.ModelViewSet):
             additional_kids_9_13=additional_kids_9_13,
             additional_kids_3_8=additional_kids_3_8,
             selected_package=selected_package,
+            selected_meals=selected_meals,
             payment_status=payment_status
         )
 
