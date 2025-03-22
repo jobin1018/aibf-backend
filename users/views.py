@@ -157,6 +157,7 @@ class RegistrationViewSet(viewsets.ModelViewSet):
         selected_package = request.data.get('selected_package', '')
         selected_meals = request.data.get('selected_meals', '')
         payment_status = request.data.get('payment_status', False)
+        total_fee = request.data.get('total_fee', 0.0)
 
         # Validate required fields
         if not email or not event_id:
@@ -199,7 +200,8 @@ class RegistrationViewSet(viewsets.ModelViewSet):
             additional_kids_3_8=additional_kids_3_8,
             selected_package=selected_package,
             selected_meals=selected_meals,
-            payment_status=payment_status
+            payment_status=payment_status,
+            total_fee=total_fee
         )
 
         # Send welcome email

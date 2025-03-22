@@ -70,6 +70,7 @@ class Registration(models.Model):
     payment_status = models.BooleanField(default=False)
     selected_package = models.CharField(max_length=100, blank=True, null=True)
     selected_meals = models.CharField(max_length=100, blank=True, null=True)
+    total_fee = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
     class Meta:
         unique_together = ('event', 'user')
